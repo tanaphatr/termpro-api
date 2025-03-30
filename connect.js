@@ -1,7 +1,6 @@
 const mysql = require("mysql2");
 
-
-//Use for login Mysql 
+//Use for login Mysql
 
 // const config = {
 //     user: 'Admin',
@@ -14,14 +13,14 @@ const mysql = require("mysql2");
 // };
 
 const config = {
-    user: 'root',
-    password: '',
-    host: 'localhost',
-    database: 'termproject',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-}
+  user: "4611961_termproject",
+  password: "frame555za",
+  host: "fdb1029.awardspace.net",
+  database: "4611961_termproject",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+};
 
 //Connect
 const pool = mysql.createPool(config);
