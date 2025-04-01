@@ -13,10 +13,11 @@ const mysql = require("mysql2");
 // };
 
 const config = {
-  user: "4611961_termproject",
-  password: "frame555za",
-  host: "fdb1029.awardspace.net",
-  database: "4611961_termproject",
+  user: "root",
+  password: "adCHwjtdoHdpvWtFzNOPvSbkkvVcVBmd",
+  host: "interchange.proxy.rlwy.net",
+  port: 33661,
+  database: "railway",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
