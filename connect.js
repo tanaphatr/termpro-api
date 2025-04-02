@@ -1,7 +1,6 @@
 const mysql = require("mysql2");
 
-
-//Use for login Mysql 
+//Use for login Mysql
 
 // const config = {
 //     user: 'Admin',
@@ -14,14 +13,15 @@ const mysql = require("mysql2");
 // };
 
 const config = {
-    user: 'root',
-    password: '',
-    host: 'localhost',
-    database: 'termproject',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-}
+  user: "root",
+  password: "adCHwjtdoHdpvWtFzNOPvSbkkvVcVBmd",
+  host: "interchange.proxy.rlwy.net",
+  port: 33661,
+  database: "railway",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+};
 
 //Connect
 const pool = mysql.createPool(config);
