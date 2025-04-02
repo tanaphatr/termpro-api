@@ -10,7 +10,14 @@ const apiKey = "9f04441fb1254c3a8bf212302242009"; // Replace with your actual AP
 router.get("/html", async (req, res) => {
   try {
     const [rows, fields] = await db.query("SELECT * FROM salesdata");
-    res.send(generateHtmlPage("Data of Pro", fields, rows));
+    res.render("pages/Crudform", {
+      title: "Salesdata",
+      fields: fields,
+      rows: rows,
+      res: res,
+      table_name: "salesdata",
+      primary_key: "sales_data_id",
+    });
   } catch (err) {
     console.error("Error fetching Salesdata:", err);
     res.status(500).json({ error: "Error fetching Salesdata" });

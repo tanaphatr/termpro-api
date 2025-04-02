@@ -89,22 +89,14 @@
     <%=title%>
   </h1>
   <div class="button-container grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-    <!-- ปุ่มต่างๆ -->
-    <button onclick="navigateTo('/Users/html')" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Users</button>
-    <button onclick="navigateTo('/Products/html')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Products</button>
-    <button onclick="navigateTo('/Employees/html')" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Employees</button>
-    <button onclick="navigateTo('/Daily_sales/html')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Daily
-      Sales</button>
-    <button onclick="navigateTo('/Product_sales/html')" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Product
-      Sales</button>
-    <button onclick="navigateTo('/Product_stock_history/html')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Product
-      Stock History</button>
-    <button onclick="navigateTo('/Sales_prediction/html')" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Sales
-      Prediction</button>
-    <button onclick="navigateTo('/Salesdata/html')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Sales
-      Data</button>
-    <button onclick="navigateTo('/Best_product')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in">Best products
-    </button>  
+    <!-- ปุ่มต่างๆ -->           
+      <button onclick="navigateTo('/Products/html')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.2s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Products</button>
+      <button onclick="navigateTo('/Employees/html')" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.3s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Employees</button>
+      <button onclick="navigateTo('/Model/html')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.4s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Model Detail</button>
+      <button onclick="navigateTo('/Product_sales/html')" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.5s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Product Sales</button>                      
+      <button onclick="navigateTo('/Salesdata/html')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.6s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Sales Data</button>
+      <button onclick="navigateTo('/History_predic/html')" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.7s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">History Prediction</button>
+  </div>
   </div>
   <button onclick="openAddModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md mb-4">Add New Record</button>
 
