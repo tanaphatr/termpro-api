@@ -9,7 +9,7 @@ const apiKey = "9f04441fb1254c3a8bf212302242009"; // Replace with your actual AP
 // Route to fetch Salesdata and display as HTML
 router.get("/html", async (req, res) => {
   try {
-    const [rows, fields] = await db.query("SELECT * FROM Salesdata");
+    const [rows, fields] = await db.query("SELECT * FROM salesdata");
     res.send(generateHtmlPage("Data of Pro", fields, rows));
   } catch (err) {
     console.error("Error fetching Salesdata:", err);
@@ -20,7 +20,7 @@ router.get("/html", async (req, res) => {
 // Route to fetch all Salesdata (JSON format)
 router.get("/", async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM Salesdata");
+    const [rows] = await db.query("SELECT * FROM salesdata");
     res.json(rows);
   } catch (err) {
     console.error("Error fetching Salesdata:", err);
@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
     const Temperature = weatherData.forecast.forecastday[0].day.avgtemp_c;
 
     const result = await db.query(
-      "INSERT INTO Salesdata (sale_date, sales_amount, profit_amount, Temperature) VALUES (?, ?, ?, ?)",
+      "INSERT INTO salesdata (sale_date, sales_amount, profit_amount, Temperature) VALUES (?, ?, ?, ?)",
       [sale_date, sales_amount || null, profit_amount || null, Temperature]
     );
 
@@ -64,7 +64,7 @@ router.put("/:sales_data_id", async (req, res) => {
 
   try {
     const result = await db.query(
-      "UPDATE Salesdata SET sales_amount = ?, profit_amount = ?,  weather = ?, Temperature = ? WHERE sales_data_id = ?",
+      "UPDATE salesdata SET sales_amount = ?, profit_amount = ?,  weather = ?, Temperature = ? WHERE sales_data_id = ?",
       [
         sales_amount || null,
         profit_amount || null,
@@ -102,7 +102,7 @@ router.delete("/:sales_data_id", async (req, res) => {
     console.log("Deleting Salesdata ID:", sales_data_id);
 
     const [result] = await db.query(
-      "DELETE FROM Salesdata WHERE sales_data_id = ?",
+      "DELETE FROM salesdata WHERE sales_data_id = ?",
       [sales_data_id]
     );
 

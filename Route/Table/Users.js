@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 // Route to fetch Users
 router.get('/html', async (req, res) => {
     try {
-        const [rows, fields] = await db.query('SELECT * FROM Users');
+        const [rows, fields] = await db.query('SELECT * FROM users');
        //res.send(generateHtmlPage('Data of Pro', fields, rows,res));
       // res.render('pages/Usersform',{title:'Data of Pro', fields: fields,rows: rows,res:res, table_name:"Users"});
        res.render('pages/Crudform',{title:'User Data', fields: fields,rows: rows,res:res, table_name:"Users",primary_key: "user_id"});
@@ -24,7 +24,7 @@ router.get('/:user_id?', async (req, res) => {
 
         if (user_id) {
             // ถ้ามี user_id ให้ดึงข้อมูลเฉพาะ ID นั้น
-            const [rows] = await db.query('SELECT * FROM Users WHERE user_id = ?', [user_id]);
+            const [rows] = await db.query('SELECT * FROM users WHERE user_id = ?', [user_id]);
             
             if (rows.length === 0) {
                 return res.status(404).json({ error: "User not found" }); // ถ้าไม่พบผู้ใช้
@@ -33,7 +33,7 @@ router.get('/:user_id?', async (req, res) => {
             return res.json(rows[0]); // ส่งข้อมูลเฉพาะ user
         } else {
             // ถ้าไม่มี user_id ให้ดึงข้อมูลทั้งหมด
-            const [rows] = await db.query('SELECT * FROM Users');
+            const [rows] = await db.query('SELECT * FROM users');
             return res.json(rows); // ส่งข้อมูลทั้งหมด
         }
     } catch (err) {
@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
         // แฮชรหัสผ่านก่อนบันทึก
         const hashedPassword = await bcrypt.hash(password_hash, 10); // 10 คือจำนวนรอบของ salt
         const result = await db.query(
-            'INSERT INTO Users (username, password_hash, role) VALUES (?, ?, ?)', 
+            'INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)', 
             [username, hashedPassword, role]
         );
         
@@ -80,7 +80,7 @@ router.put('/:user_id', async (req, res) => {
         // แฮชรหัสผ่านใหม่ก่อนการอัปเดต
         const hashedPassword = await bcrypt.hash(password_hash, 10); // 10 คือจำนวนรอบของ salt
         const result = await db.query(
-            'UPDATE Users SET username = ?, password_hash = ?, role = ? WHERE user_id = ?',
+            'UPDATE users SET username = ?, password_hash = ?, role = ? WHERE user_id = ?',
             [username, hashedPassword, role, user_id]
         );
 
