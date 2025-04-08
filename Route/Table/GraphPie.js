@@ -8,12 +8,12 @@ router.get('/category-sales', async (req, res) => {
     const query = `
       SELECT 
         CASE
-          WHEN product_code LIKE 'A%' THEN 'รองเท้า'
-          WHEN product_code LIKE 'B%' THEN 'ถุงเท้า'
-          WHEN product_code LIKE 'D%' THEN 'แมส'
-          WHEN product_code LIKE 'E%' THEN 'กิ๊บ'
-          WHEN product_code LIKE 'F%' THEN 'กระเป๋า'
-          ELSE 'อื่นๆ'
+          WHEN product_code LIKE 'A%' THEN 'Shoes'
+          WHEN product_code LIKE 'B%' THEN 'Socks'
+          WHEN product_code LIKE 'D%' THEN 'Mask'
+          WHEN product_code LIKE 'E%' THEN 'Hair clip'
+          WHEN product_code LIKE 'F%' THEN 'Bag'
+          ELSE 'Others'
         END as Category,
         COUNT(*) as ProductCount,
         FLOOR(AVG(Quantity)) as AvgQuantity,
@@ -21,12 +21,12 @@ router.get('/category-sales', async (req, res) => {
       FROM product_sales 
       GROUP BY 
         CASE
-          WHEN product_code LIKE 'A%' THEN 'รองเท้า'
-          WHEN product_code LIKE 'B%' THEN 'ถุงเท้า'
-          WHEN product_code LIKE 'D%' THEN 'แมส'
-          WHEN product_code LIKE 'E%' THEN 'กิ๊บ'
-          WHEN product_code LIKE 'F%' THEN 'กระเป๋า'
-          ELSE 'อื่นๆ'
+          WHEN product_code LIKE 'A%' THEN 'Shoes'
+          WHEN product_code LIKE 'B%' THEN 'Socks'
+          WHEN product_code LIKE 'D%' THEN 'Mask'
+          WHEN product_code LIKE 'E%' THEN 'Hair clip'
+          WHEN product_code LIKE 'F%' THEN 'Bag'
+          ELSE 'Others'
         END
       ORDER BY AvgTotalSale DESC
     `;
