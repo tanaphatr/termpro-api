@@ -46,13 +46,18 @@ router.post("/", async (req, res) => {
     const weatherData = await response.json();
     const Temperature = weatherData.forecast.forecastday[0].day.avgtemp_c;
 
-    const result = await db.query(
+    const result1 = await db.query(
       "INSERT INTO salesdata (sale_date, sales_amount, profit_amount, Temperature) VALUES (?, ?, ?, ?)",
       [sale_date, sales_amount || null, profit_amount || null, Temperature]
     );
 
+    await db.query(
+      "INSERT INTO temp (date, Temperature) VALUES (?, ?)",
+      [sale_date, Temperature]
+    );
+
     res.status(201).json({
-      id: result.insertId,
+      id: result1.insertId,
       sale_date,
       sales_amount,
       profit_amount,
