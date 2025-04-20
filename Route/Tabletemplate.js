@@ -1,5 +1,5 @@
 function generateHtmlPage(title, fields, rows) {
-    return `
+  return `
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -28,7 +28,7 @@ function generateHtmlPage(title, fields, rows) {
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">                   
                     <button onclick="navigateTo('/Products/html')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.2s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Products</button>
                     <button onclick="navigateTo('/Employees/html')" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.3s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Employees</button>
-                    <button onclick="navigateTo('/Model/html')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.4s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Model Detail</button>
+                    <button onclick="navigateTo('/Temp/html')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.4s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Temp Detail</button>
                     <button onclick="navigateTo('/Product_sales/html')" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.5s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Product Sales</button>                      
                     <button onclick="navigateTo('/Salesdata/html')" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.6s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">Sales Data</button>
                     <button onclick="navigateTo('/History_predic/html')" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 fade-in" style="animation-delay: 0.7s;" onmouseover="applyHoverEffect(this)" onmouseout="removeHoverEffect(this)">History Prediction</button>
@@ -60,7 +60,8 @@ function generateHtmlPage(title, fields, rows) {
                                     .map(
                                       (field) =>
                                         `<td class="py-3 px-4 border border-gray-300 table-cell">${
-                                          row[field.name] !== undefined && row[field.name] !== null
+                                          row[field.name] !== undefined &&
+                                          row[field.name] !== null
                                             ? row[field.name]
                                             : ""
                                         }</td>`
@@ -87,16 +88,38 @@ function generateHtmlPage(title, fields, rows) {
                       <h2 class="text-2xl font-semibold text-center mb-4">Add New Data</h2>
                       <form id="addForm" class="flex flex-wrap">
                       ${fields
-                        .filter(field => !['sales_data_id',  'event', 'festival', 'Back_to_School_Period'].includes(field.name))
+                        .filter(
+                          (field) =>
+                            ![
+                              "sales_data_id",
+                              "event",
+                              "festival",
+                              "Back_to_School_Period",
+                            ].includes(field.name)
+                        )
                         .map(
-                        (field) => `
+                          (field) => `
                             <div class="mb-4 w-1/2 pr-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">${field.name}:</label>
-                                <input type="${field.name.toLowerCase().includes('date') ? 'text' : 'text'}" 
+                                <label class="block text-sm font-medium text-gray-700 mb-1">${
+                                  field.name
+                                }:</label>
+                                <input type="${
+                                  field.name.toLowerCase().includes("date")
+                                    ? "text"
+                                    : "text"
+                                }" 
                                         name="${field.name}" 
                                         id="add_${field.name}" 
                                         class="border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                        ${!['sales_amount', 'profit_amount', 'sale_date'].includes(field.name) ? 'required' : ''} />
+                                        ${
+                                          ![
+                                            "sales_amount",
+                                            "profit_amount",
+                                            "sale_date",
+                                          ].includes(field.name)
+                                            ? "required"
+                                            : ""
+                                        } />
                             </div>
                         `
                         )
@@ -115,16 +138,38 @@ function generateHtmlPage(title, fields, rows) {
                       <h2 class="text-2xl font-semibold text-center mb-4">Edit Data</h2>
                       <form id="editForm" class="flex flex-wrap">
                       ${fields
-                        .filter(field => !['sales_data_id', 'event', 'festival', 'Back_to_School_Period'].includes(field.name))
+                        .filter(
+                          (field) =>
+                            ![
+                              "sales_data_id",
+                              "event",
+                              "festival",
+                              "Back_to_School_Period",
+                            ].includes(field.name)
+                        )
                         .map(
-                        (field) => `
+                          (field) => `
                             <div class="mb-4 w-1/2 pr-2">
-                                <label class="block text-sm font-medium text-gray-700 mb-1">${field.name}:</label>
-                                <input type="${field.name.toLowerCase().includes('date') ? 'text' : 'text'}" 
+                                <label class="block text-sm font-medium text-gray-700 mb-1">${
+                                  field.name
+                                }:</label>
+                                <input type="${
+                                  field.name.toLowerCase().includes("date")
+                                    ? "text"
+                                    : "text"
+                                }" 
                                         name="${field.name}" 
                                         id="edit_${field.name}" 
                                         class="border border-gray-300 p-2 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                                        ${!['sales_amount', 'profit_amount', 'sale_date'].includes(field.name) ? 'required' : ''} />
+                                        ${
+                                          ![
+                                            "sales_amount",
+                                            "profit_amount",
+                                            "sale_date",
+                                          ].includes(field.name)
+                                            ? "required"
+                                            : ""
+                                        } />
                             </div>
                         `
                         )
@@ -158,13 +203,24 @@ function generateHtmlPage(title, fields, rows) {
                       const row = rowsData.find(r => r.sales_data_id === sales_data_id);
                       if (row) {
                           ${fields
-                              .filter(field => !['sales_data_id', 'event', 'festival', 'Back_to_School_Period'].includes(field.name))
-                              .map(field => `
+                            .filter(
+                              (field) =>
+                                ![
+                                  "sales_data_id",
+                                  "event",
+                                  "festival",
+                                  "Back_to_School_Period",
+                                ].includes(field.name)
+                            )
+                            .map(
+                              (field) => `
                                   const ${field.name}Input = document.getElementById('edit_${field.name}');
                                   if (${field.name}Input) {
                                       ${field.name}Input.value = row['${field.name}'] || '';
                                   }
-                              `).join('\n')}
+                              `
+                            )
+                            .join("\n")}
                       }
                       document.getElementById('editModal').classList.remove('hidden');
                   }
@@ -178,15 +234,29 @@ function generateHtmlPage(title, fields, rows) {
                     
                     const data = {};
                     ${fields
-                    .filter((field) => !['sales_data_id', 'event', 'festival', 'Back_to_School_Period'].includes(field.name))
-                    .map(
+                      .filter(
+                        (field) =>
+                          ![
+                            "sales_data_id",
+                            "event",
+                            "festival",
+                            "Back_to_School_Period",
+                          ].includes(field.name)
+                      )
+                      .map(
                         (field) => `
-                        const ${field.name}Value = document.getElementById('add_${field.name}').value;
-                        data['${field.name}'] = ${['sales_amount', 'profit_amount'].includes(field.name) ? 
-                        `${field.name}Value === '' ? null : ${field.name}Value` : 
-                        `${field.name}Value`};`
-                    )
-                    .join("\n")}
+                        const ${
+                          field.name
+                        }Value = document.getElementById('add_${
+                          field.name
+                        }').value;
+                        data['${field.name}'] = ${
+                          ["sales_amount", "profit_amount"].includes(field.name)
+                            ? `${field.name}Value === '' ? null : ${field.name}Value`
+                            : `${field.name}Value`
+                        };`
+                      )
+                      .join("\n")}
                     
                     axios.post('/Salesdata', data)
                         .then(response => {
@@ -205,15 +275,29 @@ function generateHtmlPage(title, fields, rows) {
                     
                     const data = {};
                     ${fields
-                    .filter((field) => !['sales_data_id', 'event', 'festival', 'Back_to_School_Period'].includes(field.name))
-                    .map(
+                      .filter(
+                        (field) =>
+                          ![
+                            "sales_data_id",
+                            "event",
+                            "festival",
+                            "Back_to_School_Period",
+                          ].includes(field.name)
+                      )
+                      .map(
                         (field) => `
-                        const ${field.name}Value = document.getElementById('edit_${field.name}').value;
-                        data['${field.name}'] = ${['sales_amount', 'profit_amount'].includes(field.name) ? 
-                        `${field.name}Value === '' ? null : ${field.name}Value` : 
-                        `${field.name}Value`};`
-                    )
-                    .join("\n")}
+                        const ${
+                          field.name
+                        }Value = document.getElementById('edit_${
+                          field.name
+                        }').value;
+                        data['${field.name}'] = ${
+                          ["sales_amount", "profit_amount"].includes(field.name)
+                            ? `${field.name}Value === '' ? null : ${field.name}Value`
+                            : `${field.name}Value`
+                        };`
+                      )
+                      .join("\n")}
                     
                     axios.put(\`/Salesdata/\${currentSalesDataId}\`, data)
                         .then(response => {
@@ -244,6 +328,6 @@ function generateHtmlPage(title, fields, rows) {
           </body>
           </html>
       `;
-  }
-  
-  module.exports = generateHtmlPage;
+}
+
+module.exports = generateHtmlPage;

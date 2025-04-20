@@ -4,13 +4,13 @@ const cors = require("cors");
 
 const mainRoutes = require("./Route/Main"); // Use consistent naming convention
 const ProductsRoutes = require("./Route/Table/Products");
-const ModelRoutes= require("./Route/Table/Model");
+const TempRoutes = require("./Route/Table/Temp");
 const EmployeesRoutes = require("./Route/Table/Employees");
-const Product_sales= require("./Route/Table/Product_sales");
+const Product_sales = require("./Route/Table/Product_sales");
 const Salesdata = require("./Route/Table/Salesdata");
-const historyPredicRouter = require('./Route/Table/History_predic');
-const GoodsaleproductData = require('./Route/Table/GoodsaleproductData');
-const GraphPie = require('./Route/Table/GraphPie');
+const historyPredicRouter = require("./Route/Table/History_predic");
+const GoodsaleproductData = require("./Route/Table/GoodsaleproductData");
+const GraphPie = require("./Route/Table/GraphPie");
 
 const app = express();
 const path = require("path"); // เรียกใช้งาน path module
@@ -32,13 +32,12 @@ app.use("/Employees", EmployeesRoutes);
 
 app.use("/Product_sales", Product_sales);
 
-
 app.use("/Salesdata", Salesdata);
-app.use("/Model", ModelRoutes);
+app.use("/Temp", TempRoutes);
 
-app.use('/History_predic', historyPredicRouter);
-app.use('/GoodsaleproductData', GoodsaleproductData);
-app.use('/GraphPie', GraphPie);
+app.use("/History_predic", historyPredicRouter);
+app.use("/GoodsaleproductData", GoodsaleproductData);
+app.use("/GraphPie", GraphPie);
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
