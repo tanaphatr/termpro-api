@@ -46,46 +46,15 @@ router.post("/", async (req, res) => {
     const weatherData = await response.json();
     const Temperature = weatherData.forecast.forecastday[0].day.avgtemp_c;
 
-    // Insert into salesdata table
     const result1 = await db.query(
       "INSERT INTO salesdata (sale_date, sales_amount, profit_amount, Temperature) VALUES (?, ?, ?, ?)",
       [sale_date, sales_amount || null, profit_amount || null, Temperature]
     );
 
-    // Insert into temp table
-    const result2 = await db.query("INSERT INTO temp (date, Temperature) VALUES (?, ?)", [
+    await db.query("INSERT INTO temp (date, Temp) VALUES (?, ?)", [
       sale_date,
       Temperature,
     ]);
-
-    if (result2.affectedRows === 0) {
-      console.error("Error: Temp record not inserted");
-    }
-
-    // Send data to another API endpoint
-    try {
-      const secondApiResponse = await fetch("http://localhost:8877/predict", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sale_date,
-          sales_amount,
-          profit_amount,
-          Temperature,
-        }),
-      });
-      
-      if (!secondApiResponse.ok) {
-        console.error("Error sending data to second API:", secondApiResponse.statusText);
-      } else {
-        console.log("Data successfully sent to second API");
-      }
-    } catch (apiErr) {
-      console.error("Error sending data to second API:", apiErr);
-      // Continue execution even if the second API call fails
-    }
 
     res.status(201).json({
       id: result1.insertId,
