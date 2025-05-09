@@ -29,11 +29,11 @@ router.get('/', async (req, res) => {
 
 // Route to add a new product
 router.post('/', async (req, res) => {
-    const { product_code, name, category, stock_quantity, unit_price, min_stock_level } = req.body;
+    const { product_code, name, category, stock_quantity, unit_price, min_stock_level, unit_profit } = req.body;
     try {
         const result = await db.query(
-            'INSERT INTO products (product_code, name, category, stock_quantity, unit_price, min_stock_level) VALUES (?, ?, ?, ?, ?, ?)',
-            [product_code, name, category, stock_quantity, unit_price, min_stock_level]
+            'INSERT INTO products (product_code, name, category, stock_quantity, unit_price, min_stock_level, unit_profit) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [product_code, name, category, stock_quantity, unit_price, min_stock_level, unit_profit]
         );
         res.status(201).json({ message: 'Product added successfully', productId: result.insertId });
     } catch (err) {
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:product_id', async (req, res) => {
     const { product_id } = req.params; // ดึง sales_data_id จาก URL
-    const { product_code, name, category, stock_quantity, unit_price, min_stock_level } = req.body;
+    const { product_code, name, category, stock_quantity, unit_price, min_stock_level, unit_profit } = req.body;
 
     // Validation ตรวจสอบว่า field จำเป็นมีข้อมูลครบหรือไม่
     if (!product_code || !name || !category) {
@@ -55,15 +55,15 @@ router.put('/:product_id', async (req, res) => {
     try {
         // อัปเดตข้อมูลในฐานข้อมูลโดยใช้ sales_data_id ที่ดึงมา
         const result = await db.query(
-            'UPDATE products SET  product_code = ?, name = ?, category = ?, stock_quantity = ?, unit_price = ?, min_stock_level = ? WHERE product_id = ?',
-            [ product_code, name, category, stock_quantity, unit_price, min_stock_level, product_id]
+            'UPDATE products SET  product_code = ?, name = ?, category = ?, stock_quantity = ?, unit_price = ?, min_stock_level = ?, unit_profit = ? WHERE product_id = ?',
+            [ product_code, name, category, stock_quantity, unit_price, min_stock_level, unit_profit, product_id]
         );
 
         if (result.affectedRows === 0) {
             return res.status(404).json({ error: "Record not found" });
         }
 
-        res.status(200).json({ message: "Record updated successfully", product_id,  product_code, name, category,stock_quantity, unit_price, min_stock_level });
+        res.status(200).json({ message: "Record updated successfully", product_id,  product_code, name, category, stock_quantity, unit_price, min_stock_level, unit_profit });
     } catch (err) {
         console.error('Error updating record:', err);
         res.status(500).json({ error: 'Error updating record' });
