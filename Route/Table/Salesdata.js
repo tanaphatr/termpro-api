@@ -23,7 +23,7 @@ router.get("/html", async (req, res) => {
     res.status(500).json({ error: "Error fetching Salesdata" });
   }
 });
-    
+
 // Route to fetch all Salesdata (JSON format)
 router.get("/", async (req, res) => {
   try {
@@ -51,10 +51,14 @@ router.post("/", async (req, res) => {
       [sale_date, sales_amount || null, profit_amount || null, Temperature]
     );
 
-    await db.query(
-      "INSERT INTO temp (date, Temperature) VALUES (?, ?)",
-      [sale_date, Temperature]
-    );
+    const result2 = await db.query("INSERT INTO temp (date, Temperature) VALUES (?, ?)", [
+      sale_date,
+      Temperature,
+    ]);
+
+    if (result2.affectedRows === 0) {
+      console.error("Error: Temp record not inserted");
+    }
 
     res.status(201).json({
       id: result1.insertId,
