@@ -43,8 +43,14 @@ router.post("/", async (req, res) => {
     const response = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=Bangkok&days=2`
     );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Error fetching weather data:", errorText);
+      throw new Error("Failed to fetch weather data");
+    }
     const weatherData = await response.json();
-    const Temperature = weatherData.forecast.forecastday[0].day.avgtemp_c;
+    const Temperature =
+      weatherData.forecast.forecastday[0]?.day?.avgtemp_c || null;
 
     const result1 = await db.query(
       "INSERT INTO salesdata (sale_date, sales_amount, profit_amount, Temperature) VALUES (?, ?, ?, ?)",
