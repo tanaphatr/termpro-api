@@ -76,6 +76,10 @@ router.post("/", async (req, res) => {
         }
 
         const formattedDate = new Date(date).toISOString().split("T")[0];
+        if (isNaN(new Date(date).getTime())) {
+          throw new Error("Invalid date format");
+        }
+
         return [Product_code, formattedDate, Quantity, Total_Sale];
       }
     );
