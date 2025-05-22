@@ -1,8 +1,9 @@
+
 const express = require('express');
 const router = express.Router();
 const pool = require('../../connect');
 
-// Route to get sales data by product category for pie chart
+// Route to get sales data by product code
 router.get('/category-sales', async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
@@ -11,14 +12,13 @@ router.get('/category-sales', async (req, res) => {
     if (!startDate || !endDate) {
       return res.status(400).json({ error: 'Missing startDate or endDate' });
     }
-
     const dateCondition = `Date BETWEEN '${startDate}' AND '${endDate}'`;
-
     const query = `
-      SELECT Product_code, Quantity
+      SELECT *
       FROM product_sales
       WHERE ${dateCondition}
     `;
+
     const [rawPieData] = await pool.query(query);
 
     const categoryData = rawPieData.reduce((acc, item) => {
@@ -35,11 +35,8 @@ router.get('/category-sales', async (req, res) => {
 
     const result = Object.values(categoryData);
     res.json(result);
-
-    const [rows] = await pool.query(query);
-    res.json(rows);
   } catch (error) {
-    console.error('Error fetching category sales data:', error);
+    console.error('Error calculating averages:', error);
     res.status(500).json({ error: error.message });
   }
 });
