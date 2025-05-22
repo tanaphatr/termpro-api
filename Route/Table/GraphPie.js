@@ -15,11 +15,9 @@ router.get('/category-sales', async (req, res) => {
     const dateCondition = `Date BETWEEN '${startDate}' AND '${endDate}'`;
 
     const query = `
-      SELECT Category, SUM(Sales) AS TotalSales
-      FROM SalesData
+      SELECT *
+      FROM product_sales
       WHERE ${dateCondition}
-      GROUP BY Category
-      ORDER BY TotalSales DESC
     `;
 
     const [rows] = await pool.query(query);
