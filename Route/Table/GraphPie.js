@@ -12,7 +12,10 @@ router.get('/category-sales', async (req, res) => {
     if (!startDate || !endDate) {
       return res.status(400).json({ error: 'Missing startDate or endDate' });
     }
-    const dateCondition = `Date BETWEEN '${startDate}' AND '${endDate}'`;
+    const dateCondition = startDate === endDate 
+      ? `Date = '${startDate}'` 
+      : `Date BETWEEN '${startDate}' AND '${endDate}'`;
+
     const query = `
       SELECT *
       FROM product_sales
