@@ -15,10 +15,26 @@ router.get('/category-sales', async (req, res) => {
     const dateCondition = `Date BETWEEN '${startDate}' AND '${endDate}'`;
 
     const query = `
-      SELECT *
+      SELECT Product_code, Quantity
       FROM product_sales
       WHERE ${dateCondition}
     `;
+    const [rawPieData] = await pool.query(query);
+
+    const categoryData = rawPieData.reduce((acc, item) => {
+      let category = '';
+      if (item.Product_code.startsWith('A')) category = 'Shoes';
+      else if (item.Product_code.startsWith('B')) category = 'Socks';
+      else if (item.Product_code.startsWith('D')) category = 'Mask';
+      else if (item.Product_code.startsWith('E')) category = 'Hair clip';
+      else if (item.Product_code.startsWith('F')) category = 'Bag';
+      if (!acc[category]) acc[category] = { category, productCount: 0 };
+      acc[category].productCount += Number(item.Quantity);
+      return acc;
+    }, {});
+
+    const result = Object.values(categoryData);
+    res.json(result);
 
     const [rows] = await pool.query(query);
     res.json(rows);
