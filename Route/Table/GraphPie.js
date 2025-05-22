@@ -5,30 +5,21 @@ const pool = require('../../connect');
 // Route to get sales data by product category for pie chart
 router.get('/category-sales', async (req, res) => {
   try {
+    const { startDate, endDate } = req.query;
+
+    // Validate the date range
+    if (!startDate || !endDate) {
+      return res.status(400).json({ error: 'Missing startDate or endDate' });
+    }
+
+    const dateCondition = `Date BETWEEN '${startDate}' AND '${endDate}'`;
+
     const query = `
-      SELECT 
-        CASE
-          WHEN product_code LIKE 'A%' THEN 'Shoes'
-          WHEN product_code LIKE 'B%' THEN 'Socks'
-          WHEN product_code LIKE 'D%' THEN 'Mask'
-          WHEN product_code LIKE 'E%' THEN 'Hair clip'
-          WHEN product_code LIKE 'F%' THEN 'Bag'
-          ELSE 'Others'
-        END as Category,
-        COUNT(*) as ProductCount,
-        FLOOR(AVG(Quantity)) as AvgQuantity,
-        FLOOR(AVG(Total_Sale)) as AvgTotalSale
-      FROM product_sales 
-      GROUP BY 
-        CASE
-          WHEN product_code LIKE 'A%' THEN 'Shoes'
-          WHEN product_code LIKE 'B%' THEN 'Socks'
-          WHEN product_code LIKE 'D%' THEN 'Mask'
-          WHEN product_code LIKE 'E%' THEN 'Hair clip'
-          WHEN product_code LIKE 'F%' THEN 'Bag'
-          ELSE 'Others'
-        END
-      ORDER BY AvgTotalSale DESC
+      SELECT Category, SUM(Sales) AS TotalSales
+      FROM SalesData
+      WHERE ${dateCondition}
+      GROUP BY Category
+      ORDER BY TotalSales DESC
     `;
 
     const [rows] = await pool.query(query);
