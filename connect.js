@@ -2,26 +2,26 @@ const mysql = require("mysql2");
 
 //Use for login Mysql
 
-// const config = {
-//     user: 'Admin',
-//     password: 'CE498termprojectsql',
-//     host: 'localhost',
-//     database: 'termproject',
-//     waitForConnections: true,
-//     connectionLimit: 10,
-//     queueLimit: 0
-// };
-
 const config = {
   user: "root",
-  password: "adCHwjtdoHdpvWtFzNOPvSbkkvVcVBmd",
-  host: "interchange.proxy.rlwy.net",
-  port: 33661,
-  database: "railway",
+  password: "",
+  host: "localhost",
+  database: "termproject",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
 };
+
+// const config = {
+//   user: "root",
+//   password: "adCHwjtdoHdpvWtFzNOPvSbkkvVcVBmd",
+//   host: "interchange.proxy.rlwy.net",
+//   port: 33661,
+//   database: "railway",
+//   waitForConnections: true,
+//   connectionLimit: 10,
+//   queueLimit: 0,
+// };
 
 //Connect
 const pool = mysql.createPool(config);
